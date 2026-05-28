@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IOBSP Coach — Préparez votre certification courtier en crédit</title>
+  <meta name="description" content="IOBSP Coach : la solution de préparation intelligente à la certification IOBSP. 50 questions QCM, 50 flashcards, algorithme de répétition espacée. Commencez gratuitement.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#1E3A5F">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="IOBSP Coach — Certification courtier en crédit">
+  <meta property="og:description" content="Préparez votre certification IOBSP avec 50 questions QCM et 50 flashcards. Algorithme d'apprentissage adaptatif. Accès gratuit, premium à 49 €.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="icons/icon-512.png">
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #1E3A5F;
+      --navy-light: #2C5282;
+      --gold: #D4AF37;
+      --gold-light: #F0D060;
+      --white: #FFFFFF;
+      --gray-50: #F9FAFB;
+      --gray-100: #F3F4F6;
+      --gray-200: #E5E7EB;
+      --gray-500: #6B7280;
+      --gray-700: #374151;
+      --gray-900: #111827;
+      --green: #059669;
+      --radius: 12px;
+      --shadow: 0 4px 24px rgba(30,58,95,0.10);
+      --shadow-lg: 0 8px 40px rgba(30,58,95,0.18);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: var(--gray-900);
+      background: var(--white);
+      line-height: 1.6;
+    }
+
+    /* ===== NAV ===== */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--gray-200);
+      padding: 0 24px;
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--navy);
+      text-decoration: none;
+    }
+    .nav-logo img {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--gray-700);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--navy); }
+    .btn-nav {
+      background: var(--navy);
+      color: var(--white) !important;
+      padding: 8px 20px;
+      border-radius: 8px;
+      font-size: 0.875rem !important;
+      transition: background 0.2s !important;
+    }
+    .btn-nav:hover { background: var(--navy-light) !important; }
+
+    /* ===== HERO ===== */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+      color: var(--white);
+      padding: 80px 24px 72px;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(212,175,55,0.18);
+      border: 1px solid rgba(212,175,55,0.4);
+      color: var(--gold-light);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 999px;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.15;
+      max-width: 760px;
+      margin: 0 auto 20px;
+    }
+    .hero h1 span { color: var(--gold); }
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: rgba(255,255,255,0.82);
+      max-width: 580px;
+      margin: 0 auto 36px;
+    }
+    .hero-cta {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--gold);
+      color: var(--navy);
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 14px 32px;
+      border-radius: 10px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+      box-shadow: 0 4px 16px rgba(212,175,55,0.35);
+    }
+    .btn-primary:hover {
+      background: var(--gold-light);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 24px rgba(212,175,55,0.45);
+    }
+    .btn-secondary-hero {
+      background: rgba(255,255,255,0.12);
+      color: var(--white);
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 14px 32px;
+      border-radius: 10px;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.3);
+      transition: all 0.2s;
+    }
+    .btn-secondary-hero:hover { background: rgba(255,255,255,0.2); }
+    .hero-stats {
+      margin-top: 52px;
+      display: flex;
+      gap: 32px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .hero-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .hero-stat-val {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--gold);
+    }
+    .hero-stat-label {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.7);
+      margin-top: 2px;
+    }
+
+    /* ===== SECTION WRAPPER ===== */
+    section { padding: 72px 24px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--navy);
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 800;
+      color: var(--gray-900);
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+    .section-sub {
+      font-size: 1.05rem;
+      color: var(--gray-500);
+      max-width: 580px;
+      margin-bottom: 48px;
+    }
+
+    /* ===== FEATURES ===== */
+    .features { background: var(--gray-50); }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .feature-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+    .feature-icon {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, var(--navy), var(--navy-light));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 16px;
+    }
+    .feature-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 8px;
+    }
+    .feature-card p {
+      font-size: 0.9rem;
+      color: var(--gray-500);
+      line-height: 1.55;
+    }
+
+    /* ===== MODULES ===== */
+    .modules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+    }
+    .module-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: 10px;
+      padding: 16px 18px;
+    }
+    .module-num {
+      width: 28px;
+      height: 28px;
+      min-width: 28px;
+      background: var(--navy);
+      color: var(--white);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+    .module-item span {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--gray-700);
+      line-height: 1.35;
+      padding-top: 4px;
+    }
+
+    /* ===== HOW IT WORKS ===== */
+    .how { background: var(--gray-50); }
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      max-width: 680px;
+    }
+    .step {
+      display: flex;
+      gap: 20px;
+      position: relative;
+    }
+    .step:not(:last-child)::before {
+      content: '';
+      position: absolute;
+      left: 19px;
+      top: 44px;
+      bottom: -28px;
+      width: 2px;
+      background: var(--gray-200);
+    }
+    .step-num {
+      width: 40px;
+      height: 40px;
+      min-width: 40px;
+      background: var(--navy);
+      color: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-top: 2px;
+      position: relative;
+      z-index: 1;
+    }
+    .step-body { padding-bottom: 36px; }
+    .step-body h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 5px;
+    }
+    .step-body p {
+      font-size: 0.9rem;
+      color: var(--gray-500);
+      line-height: 1.55;
+    }
+
+    /* ===== PRICING ===== */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      max-width: 780px;
+    }
+    .pricing-card {
+      border: 1px solid var(--gray-200);
+      border-radius: 16px;
+      padding: 32px;
+      background: var(--white);
+      box-shadow: var(--shadow);
+    }
+    .pricing-card.featured {
+      border-color: var(--navy);
+      box-shadow: var(--shadow-lg), 0 0 0 3px rgba(30,58,95,0.08);
+      position: relative;
+    }
+    .pricing-badge {
+      position: absolute;
+      top: -13px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--navy);
+      color: var(--white);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .pricing-plan {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gray-500);
+      margin-bottom: 10px;
+    }
+    .pricing-price {
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: var(--gray-900);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .pricing-price sup {
+      font-size: 1.1rem;
+      vertical-align: super;
+      font-weight: 600;
+    }
+    .pricing-period {
+      font-size: 0.85rem;
+      color: var(--gray-500);
+      margin-bottom: 24px;
+    }
+    .pricing-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+    .pricing-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.88rem;
+      color: var(--gray-700);
+    }
+    .pricing-features li.disabled { color: var(--gray-500); opacity: 0.65; }
+    .check { color: var(--green); font-size: 1rem; line-height: 1.4; }
+    .cross { color: var(--gray-500); font-size: 0.9rem; line-height: 1.4; }
+    .btn-pricing {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-pricing.outlined {
+      border: 2px solid var(--navy);
+      color: var(--navy);
+    }
+    .btn-pricing.outlined:hover { background: var(--navy); color: var(--white); }
+    .btn-pricing.filled {
+      background: var(--navy);
+      color: var(--white);
+    }
+    .btn-pricing.filled:hover { background: var(--navy-light); }
+
+    /* ===== GUARANTEE ===== */
+    .guarantee {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+      color: var(--white);
+      text-align: center;
+    }
+    .guarantee h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; margin-bottom: 14px; }
+    .guarantee p { color: rgba(255,255,255,0.8); max-width: 520px; margin: 0 auto 36px; font-size: 1.05rem; }
+    .guarantee-badges {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .guarantee-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 10px;
+      padding: 10px 18px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    /* ===== FAQ ===== */
+    .faq-list {
+      max-width: 720px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .faq-item {
+      border: 1px solid var(--gray-200);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .faq-q {
+      width: 100%;
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--gray-900);
+      text-align: left;
+      gap: 12px;
+    }
+    .faq-q:hover { background: var(--gray-50); }
+    .faq-icon {
+      font-size: 1.2rem;
+      color: var(--navy);
+      min-width: 20px;
+      transition: transform 0.2s;
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-a {
+      display: none;
+      padding: 0 20px 16px;
+      font-size: 0.9rem;
+      color: var(--gray-500);
+      line-height: 1.6;
+    }
+    .faq-item.open .faq-a { display: block; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--gray-900);
+      color: rgba(255,255,255,0.6);
+      padding: 40px 24px;
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      color: var(--white);
+      font-size: 0.95rem;
+    }
+    .footer-brand img { width: 28px; height: 28px; border-radius: 6px; }
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+    .footer-links a {
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      font-size: 0.83rem;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--white); }
+    .footer-copy { font-size: 0.8rem; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .hero { padding: 60px 20px 52px; }
+      section { padding: 52px 20px; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .steps { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <img src="icons/icon-192.png" alt="IOBSP Coach">
+      IOBSP Coach
+    </a>
+    <ul class="nav-links">
+      <li><a href="#fonctionnalites">Fonctionnalités</a></li>
+      <li><a href="#modules">Modules</a></li>
+      <li><a href="#tarifs">Tarifs</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="app.html" class="btn-nav">Commencer →</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">✦ Certification IOBSP — Courtier en crédit Cat. 1</div>
+  <h1>Préparez votre <span>certification IOBSP</span> avec méthode</h1>
+  <p class="hero-sub">50 questions QCM, 50 flashcards, algorithme de répétition espacée. Apprenez les bons points au bon moment — jusqu'à l'examen.</p>
+  <div class="hero-cta">
+    <a href="app.html" class="btn-primary">Commencer gratuitement →</a>
+    <a href="#tarifs" class="btn-secondary-hero">Voir les tarifs</a>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <span class="hero-stat-val">50</span>
+      <span class="hero-stat-label">Questions QCM</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-val">50</span>
+      <span class="hero-stat-label">Flashcards</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-val">8</span>
+      <span class="hero-stat-label">Modules officiels</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-val">100%</span>
+      <span class="hero-stat-label">Hors-ligne (PWA)</span>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="fonctionnalites">
+  <div class="section-inner">
+    <div class="section-label">Fonctionnalités</div>
+    <h2 class="section-title">Tout ce dont vous avez besoin pour réussir</h2>
+    <p class="section-sub">Une application conçue pour les candidats IOBSP sérieux qui veulent optimiser leur temps de révision.</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <h3>Questions adaptatives</h3>
+        <p>L'algorithme SM-2 de répétition espacée présente en priorité les questions où vous faites des erreurs. Zéro temps perdu sur ce que vous maîtrisez déjà.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🃏</div>
+        <h3>Flashcards interactives</h3>
+        <p>50 flashcards couvrant les définitions, articles de loi et concepts clés. Révision rapide au bureau, dans les transports, partout.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>Suivi de progression</h3>
+        <p>Visualisez votre taux de réussite module par module. Identifiez vos points faibles et concentrez vos révisions là où c'est utile.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🏛️</div>
+        <h3>Contenu réglementaire exact</h3>
+        <p>Toutes les questions sont basées sur les textes officiels en vigueur (CMF, C.conso, arrêté 2022, HCSF 2024). Chaque réponse cite ses sources.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📱</div>
+        <h3>Application hors-ligne (PWA)</h3>
+        <p>Installez-la sur votre téléphone ou ordinateur. Fonctionne sans connexion internet. Vos données restent sur votre appareil.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>Mode examen blanc</h3>
+        <p>Simulez les conditions de l'examen réel avec un timer, des questions tirées au sort sur les 8 modules, et un résultat détaillé par module.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODULES -->
+<section id="modules">
+  <div class="section-inner">
+    <div class="section-label">Programme officiel</div>
+    <h2 class="section-title">Les 8 modules couverts</h2>
+    <p class="section-sub">Le programme complet de la certification IOBSP catégorie 1 (150 heures), arrêté du 18 juillet 2022.</p>
+    <div class="modules-grid">
+      <div class="module-item"><div class="module-num">1</div><span>Cadre juridique &amp; réglementaire des IOBSP</span></div>
+      <div class="module-item"><div class="module-num">2</div><span>Environnement bancaire &amp; financier</span></div>
+      <div class="module-item"><div class="module-num">3</div><span>Crédit immobilier (directive DCI)</span></div>
+      <div class="module-item"><div class="module-num">4</div><span>Crédit à la consommation</span></div>
+      <div class="module-item"><div class="module-num">5</div><span>Regroupement de crédits</span></div>
+      <div class="module-item"><div class="module-num">6</div><span>Protection du consommateur</span></div>
+      <div class="module-item"><div class="module-num">7</div><span>Déontologie &amp; bonne conduite</span></div>
+      <div class="module-item"><div class="module-num">8</div><span>LCB-FT — Lutte contre le blanchiment</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <div class="section-inner">
+    <div class="section-label">Comment ça marche</div>
+    <h2 class="section-title">Prêt en 2 minutes</h2>
+    <p class="section-sub">Pas d'inscription requise pour commencer. Ouvrez l'app et révisez.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h3>Ouvrez l'application</h3>
+          <p>Cliquez sur "Commencer gratuitement". L'accès aux 25 premières questions et 20 premières flashcards est immédiat, sans compte.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h3>Révisez à votre rythme</h3>
+          <p>Enchaînez les sessions QCM ou les flashcards. L'algorithme mémorise vos erreurs et les représente au bon moment.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h3>Débloquez l'accès complet (optionnel)</h3>
+          <p>Pour accéder aux 50 questions, 50 flashcards et à la carte de connaissance, passez en accès Premium pour 49 € une fois (pas d'abonnement).</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h3>Passez l'examen en confiance</h3>
+          <p>Simulez l'examen blanc, vérifiez votre taux de maîtrise par module, et présentez-vous sereinement à la certification.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="tarifs">
+  <div class="section-inner">
+    <div class="section-label">Tarifs</div>
+    <h2 class="section-title">Simple et transparent</h2>
+    <p class="section-sub">Commencez gratuitement. Payez une fois si vous voulez tout débloquer.</p>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="pricing-plan">Gratuit</div>
+        <div class="pricing-price">0 <sup>€</sup></div>
+        <div class="pricing-period">Pour toujours</div>
+        <ul class="pricing-features">
+          <li><span class="check">✓</span> 25 questions QCM (sur 50)</li>
+          <li><span class="check">✓</span> 20 flashcards (sur 50)</li>
+          <li><span class="check">✓</span> Suivi de progression</li>
+          <li><span class="check">✓</span> Application hors-ligne</li>
+          <li class="disabled"><span class="cross">✕</span> 25 questions avancées</li>
+          <li class="disabled"><span class="cross">✕</span> 30 flashcards avancées</li>
+          <li class="disabled"><span class="cross">✕</span> Mode examen blanc complet</li>
+          <li class="disabled"><span class="cross">✕</span> Carte de connaissances</li>
+        </ul>
+        <a href="app.html" class="btn-pricing outlined">Commencer →</a>
+      </div>
+      <div class="pricing-card featured">
+        <div class="pricing-badge">⭐ Recommandé</div>
+        <div class="pricing-plan">Premium</div>
+        <div class="pricing-price"><sup>€</sup>49</div>
+        <div class="pricing-period">Paiement unique — accès à vie</div>
+        <ul class="pricing-features">
+          <li><span class="check">✓</span> 50 questions QCM (accès complet)</li>
+          <li><span class="check">✓</span> 50 flashcards (accès complet)</li>
+          <li><span class="check">✓</span> Suivi de progression avancé</li>
+          <li><span class="check">✓</span> Application hors-ligne</li>
+          <li><span class="check">✓</span> 25 questions avancées</li>
+          <li><span class="check">✓</span> 30 flashcards avancées</li>
+          <li><span class="check">✓</span> Mode examen blanc complet</li>
+          <li><span class="check">✓</span> Carte de connaissances par module</li>
+        </ul>
+        <a href="https://actiongap.lemonsqueezy.com/checkout/buy/iobsp-coach" target="_blank" class="btn-pricing filled">Acheter l'accès Premium →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GUARANTEE -->
+<section class="guarantee">
+  <div class="section-inner">
+    <h2>Contenu conforme aux textes officiels</h2>
+    <p>Chaque question et flashcard est basée sur la réglementation française en vigueur. Sources : CMF, Code de la consommation, arrêté du 18 juillet 2022, décisions HCSF 2021 et 2023.</p>
+    <div class="guarantee-badges">
+      <div class="guarantee-badge">📜 CMF à jour</div>
+      <div class="guarantee-badge">🏦 Arrêté IOBSP 2022</div>
+      <div class="guarantee-badge">🏠 Directive DCI 2014/17/UE</div>
+      <div class="guarantee-badge">📊 HCSF 2021 + 2023</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="section-inner">
+    <div class="section-label">Questions fréquentes</div>
+    <h2 class="section-title">FAQ</h2>
+    <p class="section-sub">Tout ce qu'il faut savoir avant de commencer.</p>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Qu'est-ce que la certification IOBSP ?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">La certification IOBSP (Intermédiaire en Opérations de Banque et Services de Paiement) est obligatoire pour exercer légalement comme courtier en crédit en France. Elle valide les compétences professionnelles requises par l'arrêté du 18 juillet 2022. La catégorie 1 (courtier) nécessite 150 heures de formation.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          IOBSP Coach remplace-t-il une formation officielle ?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Non. IOBSP Coach est un outil de révision complémentaire qui vous aide à mémoriser et à tester vos connaissances. Il ne se substitue pas à une formation agréée auprès d'un organisme accrédité. Vérifiez toujours les conditions d'accès à l'examen auprès de l'ORIAS et de votre organisme de formation.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Mes données sont-elles sécurisées ?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Vos données de progression (résultats, statistiques) sont stockées localement sur votre appareil (localStorage). Aucune donnée personnelle n'est envoyée à un serveur sans votre accord. La création d'un compte est optionnelle et sert uniquement à la synchronisation multi-appareils.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Comment fonctionne le paiement unique ?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Le paiement de 49 € est traité de façon sécurisée par Lemon Squeezy (carte bancaire, etc.). Vous recevez immédiatement une clé de licence valable à vie. Pas d'abonnement, pas de renouvellement automatique. La clé s'active directement dans l'application.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          L'application fonctionne-t-elle hors-ligne ?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Oui. IOBSP Coach est une Progressive Web App (PWA). Après la première ouverture avec connexion, toutes les ressources sont mises en cache. Vous pouvez réviser sans connexion internet. Installez-la sur votre écran d'accueil via votre navigateur pour un accès encore plus rapide.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Le contenu est-il à jour avec la réglementation 2024 ?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Oui. Le contenu intègre les dernières évolutions : arrêté IOBSP du 18 juillet 2022 (heures de formation), décision HCSF D-2023-6 (seuil travaux 10% depuis janvier 2024), loi Lemoine 2022 (assurance emprunteur), et les articles du CMF en vigueur.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="icons/icon-192.png" alt="IOBSP Coach">
+      IOBSP Coach
+    </div>
+    <ul class="footer-links">
+      <li><a href="app.html#legal">Mentions légales</a></li>
+      <li><a href="app.html#cgv">CGV</a></li>
+      <li><a href="mailto:contact@hfp-coach.ch">Contact</a></li>
+    </ul>
+    <span class="footer-copy">© 2025 HFP Coach — Outil de préparation indépendant. Non affilié à l'ORIAS, l'ACPR ou tout organisme officiel.</span>
+  </div>
+</footer>
+
+<script>
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    item.classList.toggle('open');
+  }
+</script>
+
+</body>
+</html>

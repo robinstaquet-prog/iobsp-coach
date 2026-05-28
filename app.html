@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1E3A5F">
+  <meta name="description" content="Préparation à la certification IOBSP — Courtier en crédit · QCM, flashcards, SM-2 et suivi des 8 modules réglementaires">
+  <title>IOBSP COACH — Préparation Courtier en Crédit</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+</head>
+<body>
+
+<!-- ===================== ÉCRAN D'ACCUEIL ===================== -->
+<div id="home-screen" class="screen hidden">
+  <header class="app-header">
+    <div class="app-header-row">
+      <h1>IOBSP COACH</h1>
+      <div id="auth-status"></div>
+    </div>
+    <span class="muted" style="font-size:13px">Préparation complète à la certification IOBSP · Courtier en crédit</span>
+  </header>
+  <main class="main-content">
+
+    <div class="home-hero">
+      <h2>IOBSP COACH</h2>
+      <p>Préparez votre certification de Courtier en Crédit — QCM, flashcards et suivi réglementaire</p>
+    </div>
+
+    <div class="mode-grid">
+      <button class="mode-card" onclick="showConfig('train')">
+        <span class="mode-icon">📖</span>
+        <span class="mode-title">Entraînement</span>
+        <span class="mode-desc">Questions réglementaires IOBSP · Feedback immédiat</span>
+        <span class="mode-badge">Format officiel</span>
+      </button>
+
+      <button class="mode-card" onclick="showConfig('exam')">
+        <span class="mode-icon">⏱</span>
+        <span class="mode-title">Examen blanc</span>
+        <span class="mode-desc">Conditions réelles · Chronométré · Résultats à la fin</span>
+        <span class="mode-badge">QCM officiel</span>
+      </button>
+
+      <button class="mode-card" onclick="showConfig('error')">
+        <span class="mode-icon">🔁</span>
+        <span class="mode-title">Révision des erreurs</span>
+        <span class="mode-desc">Retravaillez vos questions ratées</span>
+        <span class="mode-badge">Ciblé</span>
+      </button>
+
+      <button class="mode-card mode-card-adaptive" onclick="startAdaptiveSession()">
+        <span class="mode-icon">🧠</span>
+        <span class="mode-title">Révision intelligente</span>
+        <span class="mode-desc">Questions adaptées à vos lacunes · SM-2</span>
+        <span class="mode-badge mode-badge-premium">Premium</span>
+      </button>
+
+      <button class="mode-card mode-card-flashcard" onclick="showFlashcardConfig()">
+        <span class="mode-icon">🃏</span>
+        <span class="mode-title">Flashcards</span>
+        <span class="mode-desc">Mémorisation active · Mauvais / Ok / Bon / Parfait</span>
+      </button>
+
+      <button class="mode-card mode-card-knowledge" onclick="showKnowledgeMap()">
+        <span class="mode-icon">🗺</span>
+        <span class="mode-title">Carte de connaissances</span>
+        <span class="mode-desc">Vue d'ensemble de votre maîtrise par module</span>
+        <span class="mode-badge mode-badge-premium">Premium</span>
+      </button>
+    </div>
+
+    <div class="guide-buttons">
+      <button class="btn-guide" onclick="showInfo()">
+        Guide de la certification IOBSP — programme, format, inscription
+      </button>
+    </div>
+
+    <div id="freemium-bar"></div>
+
+    <div class="stats-box">
+      <h3>Statistiques globales</h3>
+      <div id="stats-panel">
+        <p class="muted">Chargement…</p>
+      </div>
+    </div>
+
+    <div id="home-install-hint" class="hidden" style="text-align:center;margin:16px 0 0">
+      <button class="btn-link" id="home-install-btn" style="font-size:13px;color:var(--accent)"></button>
+    </div>
+
+    <footer class="app-footer">
+      <p class="footer-disclaimer">IOBSP COACH est un outil de préparation indépendant. Il n'est ni affilié, ni approuvé, ni certifié par l'ACPR, l'ORIAS ou tout autre organisme officiel. Les informations affichées sont indicatives — vérifiez toujours auprès des organismes agréés (ACPR, ORIAS, CNCEF, etc.).</p>
+      <div class="footer-links">
+        <a href="#" onclick="showLegal(); return false;">Mentions légales</a>
+        <span>·</span>
+        <a href="#" onclick="showCGV(); return false;">CGV</a>
+        <span>·</span>
+        <a href="#" onclick="promptLicenseInput(event)">Entrer un code licence</a>
+        <span>·</span>
+        <a href="mailto:robin@actiongap.ch">Contact</a>
+        <span>·</span>
+        <span class="footer-copy">&copy; 2026 Robin Staquet — Tous droits réservés</span>
+      </div>
+    </footer>
+
+  </main>
+</div>
+
+<!-- ===================== MENTIONS LÉGALES ===================== -->
+<div id="legal-screen" class="screen hidden">
+  <header class="app-header">
+    <button class="btn-back" onclick="showHome()">← Retour</button>
+    <h1>Mentions légales</h1>
+  </header>
+  <main class="main-content legal-content">
+    <h2>Éditeur</h2>
+    <p>Robin Staquet<br>Contact : <a href="mailto:robin@actiongap.ch">robin@actiongap.ch</a></p>
+
+    <h2>Hébergement</h2>
+    <p>Hetzner Online GmbH — Industriestr. 25, 91710 Gunzenhausen, Allemagne</p>
+
+    <h2>Nature du contenu</h2>
+    <p>IOBSP COACH est un outil de préparation pédagogique destiné aux candidats à la certification d'Intermédiaire en Opérations de Banque et en Services de Paiement (IOBSP), catégorie Courtier en crédit. Les questions, flashcards et contenus proposés sont <strong>des créations originales</strong> à visée éducative.</p>
+
+    <h2>Non-affiliation</h2>
+    <p>Ce produit est <strong>indépendant</strong> et n'est en aucun cas affilié, approuvé, sponsorisé ou certifié par :</p>
+    <ul>
+      <li>L'Autorité de Contrôle Prudentiel et de Résolution (ACPR)</li>
+      <li>L'Organisme pour le Registre des Intermédiaires en Assurance (ORIAS)</li>
+      <li>La Chambre Nationale des Conseils Experts Financiers (CNCEF)</li>
+      <li>Tout organisme de formation agréé</li>
+    </ul>
+    <p>Les termes « IOBSP », « Courtier en crédit », « certification » sont utilisés à titre purement descriptif pour identifier le cadre réglementaire auquel cet outil se rapporte.</p>
+
+    <h2>Limitation de responsabilité</h2>
+    <p>Les informations fournies le sont à titre pédagogique uniquement et ne constituent en aucun cas un avis juridique ou professionnel. L'éditeur ne garantit pas le succès à l'examen de certification. L'utilisateur est seul responsable de sa préparation.</p>
+    <p>L'éditeur s'efforce de fournir des informations exactes et à jour (notamment sur les textes réglementaires), mais ne peut garantir l'absence d'erreurs. En cas d'inexactitude constatée, merci de la signaler à l'adresse ci-dessus.</p>
+
+    <h2>Propriété intellectuelle</h2>
+    <p>L'ensemble du contenu (questions, flashcards, code source, design) est protégé par le droit d'auteur français (Code de la propriété intellectuelle). Toute reproduction, distribution ou utilisation commerciale sans autorisation est interdite.</p>
+
+    <h2>Données personnelles</h2>
+    <p>Les données de progression sont stockées <strong>localement sur l'appareil de l'utilisateur</strong> (localStorage). Lors de l'utilisation avec un compte, les données sont stockées sur un serveur sécurisé aux seules fins de synchronisation multi-appareils. Aucune donnée n'est vendue ou partagée à des tiers.</p>
+
+    <button class="btn btn-secondary" onclick="showHome()" style="width:100%;margin-top:16px">← Retour à l'accueil</button>
+  </main>
+</div>
+
+<!-- ===================== CGV ===================== -->
+<div id="cgv-screen" class="screen hidden">
+  <header class="app-header">
+    <button class="btn-back" onclick="showHome()">← Retour</button>
+    <h1>Conditions générales de vente</h1>
+  </header>
+  <main class="main-content legal-content">
+    <h2>1. Objet</h2>
+    <p>Les présentes CGV régissent la vente de l'accès premium à l'application IOBSP COACH, outil de préparation à la certification d'Intermédiaire en Opérations de Banque et en Services de Paiement.</p>
+
+    <h2>2. Prix et paiement</h2>
+    <p>L'accès premium est vendu au prix de <strong>49 € TTC</strong> (achat unique, TVA française incluse). Le paiement est traité par Lemon Squeezy (Merchant of Record). Un code de licence est envoyé par email après paiement.</p>
+
+    <h2>3. Accès et licence</h2>
+    <p>L'achat donne droit à une <strong>licence personnelle, non-transférable et illimitée dans le temps</strong> pour un seul utilisateur. Le code de licence permet d'activer l'accès sur plusieurs appareils du même utilisateur.</p>
+
+    <h2>4. Droit de rétractation</h2>
+    <p>Conformément à la directive européenne sur les droits des consommateurs et au Code de la consommation français, vous bénéficiez d'un droit de rétractation de <strong>14 jours</strong> à compter de l'achat. La demande de remboursement doit être adressée à robin@actiongap.ch. Le remboursement est effectué via le moyen de paiement initial dans un délai de 14 jours.</p>
+
+    <h2>5. Version d'essai gratuite</h2>
+    <p>Une version gratuite limitée est accessible sans achat. Elle permet de tester les fonctionnalités principales avec un nombre restreint de questions et flashcards.</p>
+
+    <h2>6. Garantie</h2>
+    <p>L'éditeur ne garantit pas le succès à l'examen de certification IOBSP. L'outil est fourni « en l'état ». L'éditeur s'engage à corriger les bugs signalés dans un délai raisonnable.</p>
+
+    <h2>7. Mises à jour</h2>
+    <p>Les mises à jour de contenu (nouvelles questions, flashcards, évolutions réglementaires) et de fonctionnalités sont incluses sans frais supplémentaires.</p>
+
+    <h2>8. For juridique</h2>
+    <p>Le droit français est applicable. En cas de litige, et après tentative de résolution amiable, le tribunal compétent sera celui du domicile du consommateur ou du lieu de conclusion du contrat.</p>
+
+    <button class="btn btn-secondary" onclick="showHome()" style="width:100%;margin-top:16px">← Retour à l'accueil</button>
+  </main>
+</div>
+
+
+<!-- ===================== ÉCRAN AUTH ===================== -->
+<div id="auth-screen" class="screen hidden">
+  <header class="app-header">
+    <button class="btn-back" onclick="showHome()">← Retour</button>
+    <h1>Mon compte</h1>
+  </header>
+  <main class="main-content">
+    <div id="auth-content"></div>
+    <p class="auth-info">Créez un compte pour synchroniser votre progression entre vos appareils (téléphone, ordinateur, tablette).</p>
+    <button class="btn btn-secondary" onclick="showHome()" style="width:100%;margin-top:16px">← Retour à l'accueil</button>
+  </main>
+</div>
+
+
+<!-- ===================== ÉCRAN AUCUNE ERREUR ===================== -->
+<div id="empty-errors-screen" class="screen hidden">
+  <header class="app-header">
+    <button class="btn-back" onclick="showHome()">← Retour</button>
+    <h1>Révision des erreurs</h1>
+  </header>
+  <main class="main-content">
+    <div class="empty-state">
+      <div class="empty-icon">✅</div>
+      <p>Aucune question dans le pool d'erreurs.<br>
+         Faites d'abord une session en Mode Entraînement ou Examen blanc pour alimenter ce pool.</p>
+      <br>
+      <button class="btn btn-primary" onclick="showHome()">Retour à l'accueil</button>
+    </div>
+  </main>
+</div>
+
+
+<!-- ===================== ÉCRAN DE CONFIGURATION ===================== -->
+<div id="config-screen" class="screen hidden">
+  <header class="app-header">
+    <button class="btn-back" onclick="showHome()">← Retour</button>
+    <h1 id="config-title">Configuration</h1>
+  </header>
+  <main class="main-content">
+
+    <div id="exam-warning" class="exam-warning hidden">
+      ⚠️ <strong>Mode Examen Blanc :</strong> aucun feedback pendant l'examen — résultats à la fin uniquement. Simulez les conditions réelles : 30 questions, durée libre ou chronométrée.
+    </div>
+
+    <!-- Modules IOBSP -->
+    <div class="config-section">
+      <h3>Modules</h3>
+      <div style="display:flex;gap:12px;margin-bottom:8px">
+        <button class="config-select-all" onclick="toggleAll('category', true)">Tout cocher</button>
+        <button class="config-select-all" onclick="toggleAll('category', false)">Tout décocher</button>
+      </div>
+      <div class="checkbox-grid">
+        <label class="checkbox-label"><input type="checkbox" name="category" value="Réglementation" checked> Réglementation IOBSP</label>
+        <label class="checkbox-label"><input type="checkbox" name="category" value="Environnement bancaire" checked> Environnement bancaire</label>
+        <label class="checkbox-label"><input type="checkbox" name="category" value="Crédit immobilier" checked> Crédit immobilier</label>
+        <label class="checkbox-label"><input type="checkbox" name="category" value="Crédit à la consommation" checked> Crédit à la consommation</label>
+        <label class="checkbox-label"><input type="checkbox" name="category" value="Regroupement de crédits" checked> Regroupement de crédits</label>
+        <label class="checkbox-label"><input type="checkbox" name="category" value="Protection du consommateur" checked> Protection du consommateur</label>
+        <label class="checkbox-label"><input type="checkbox" name="category" value="Déontologie" checked> Déontologie & éthique</label>
+        <label class="checkbox-label"><input type="checkbox" name="category" value="LCB-FT" checked> LCB-FT</label>
+      </div>
+    </div>
+
+    <!-- Nombre de questions -->
+    <div class="config-section">
+      <h3>Nombre de questions</h3>
+      <div class="radio-group">
+        <label class="radio-label"><input type="radio" name="q-count" value="5"> 5</label>
+        <label class="radio-label"><input type="radio" name="q-count" value="10" checked id="q-count-10"> 10</label>
+        <label class="radio-label"><input type="radio" name="q-count" value="20" id="q-count-20"> 20</label>
+        <label class="radio-label"><input type="radio" name="q-count" value="30" id="q-count-30"> 30 <span style="font-size:10px;color:#64748b">(format recommandé)</span></label>
+        <label class="radio-label"><input type="radio" name="q-count" value="all"> Toutes</label>
+        <label class="radio-label"><input type="radio" name="q-count" value="custom"> Personnalisé</label>
+      </div>
+      <div id="custom-count-wrap" class="config-row hidden">
+        <label for="q-count-custom">Nombre :</label>
+        <input type="number" id="q-count-custom" min="1" max="100" value="15">
+      </div>
+    </div>
+
+    <!-- Ordre -->
+    <div class="config-section">
+      <h3>Ordre des questions</h3>
+      <div class="radio-group">
+        <label class="radio-label"><input type="radio" name="order" value="random" checked> Aléatoire</label>
+        <label class="radio-label"><input type="radio" name="order" value="sequential"> Ordre du programme</label>
+      </div>
+    </div>
+
+    <!-- Options examen -->
+    <div id="exam-options" class="config-section hidden">
+      <h3>Durée de l'examen</h3>
+      <div class="config-row">
+        <label for="exam-duration">Durée (minutes) :</label>
+        <input type="number" id="exam-duration" min="10" max="180" value="60">
+      </div>
+    </div>
+
+    <button class="btn btn-primary" id="btn-start-session" style="width:100%;margin-top:8px;padding:14px">
+      Commencer
+    </button>
+
+  </main>
+</div>
+
+
+<!-- ===================== ÉCRAN DE QUESTION ===================== -->
+<div id="question-screen" class="screen hidden">
+  <header class="app-header">
+    <div class="q-progress" id="q-progress-text">1 / 10</div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar" id="q-progress-bar" style="width:0%"></div>
+    </div>
+    <div id="exam-timer-wrap" class="exam-timer-wrap hidden">
+      <span>⏱</span>
+      <span class="exam-timer" id="exam-timer">60:00</span>
+    </div>
+  </header>
+
+  <main class="main-content">
+
+    <div id="q-meta" class="q-meta"></div>
+
+    <div class="q-card">
+      <p id="q-text" class="q-text"></p>
+      <div id="q-options"></div>
+    </div>
+
+    <div id="q-feedback"></div>
+
+    <div class="q-actions">
+      <button class="btn btn-primary" id="btn-validate">Valider ma réponse</button>
+      <button class="btn btn-outline hidden" id="btn-skip">Passer</button>
+      <button class="btn btn-secondary hidden" id="btn-next">Question suivante</button>
+    </div>
+
+    <!-- Navigation panel (exam mode only) -->
+    <div id="exam-nav-panel" class="exam-nav-panel hidden">
+      <button class="exam-nav-toggle" id="exam-nav-toggle" onclick="toggleExamNav()">
+        <span id="exam-nav-toggle-label">Questions</span>
+        <span id="exam-nav-skipped-badge" class="exam-nav-badge hidden">0</span>
+      </button>
+      <div id="exam-nav-grid" class="exam-nav-grid hidden"></div>
+    </div>
+
+  </main>
+</div>
+
+
+<!-- ===================== ÉCRAN DE RÉSULTATS ===================== -->
+<div id="result-screen" class="screen hidden">
+  <header class="app-header">
+    <h1>Résultats de session</h1>
+    <div class="header-right">
+      <button class="btn btn-secondary btn-sm" onclick="showHome()">Accueil</button>
+    </div>
+  </header>
+  <main class="main-content">
+    <div id="result-content"></div>
+  </main>
+</div>
+
+
+<!-- ===================== ÉCRAN INFO CERTIFICATION IOBSP ===================== -->
+<div id="info-screen" class="screen hidden">
+  <header class="app-header">
+    <button class="btn-back" onclick="showHome()">← Retour</button>
+    <h1>Guide de la certification IOBSP</h1>
+  </header>
+  <main class="main-content">
+
+    <!-- BLOC 1 : La certification en chiffres -->
+    <div class="info-card">
+      <h2 class="info-card-title">La certification en chiffres</h2>
+      <div class="info-grid-4">
+        <div class="info-stat">
+          <span class="info-stat-val">150 h</span>
+          <span class="info-stat-label">formation requise</span>
+        </div>
+        <div class="info-stat">
+          <span class="info-stat-val">Cat. 1</span>
+          <span class="info-stat-label">Courtier en crédit</span>
+        </div>
+        <div class="info-stat">
+          <span class="info-stat-val">ORIAS</span>
+          <span class="info-stat-label">immatriculation</span>
+        </div>
+        <div class="info-stat">
+          <span class="info-stat-val">2 ans</span>
+          <span class="info-stat-label">formation continue</span>
+        </div>
+      </div>
+      <div class="info-note">
+        La certification IOBSP est régie par l'<strong>Arrêté du 4 avril 2012</strong> relatif à la capacité professionnelle des IOBSP. Elle est obligatoire pour exercer légalement en France. L'immatriculation à l'ORIAS doit être renouvelée chaque année.
+      </div>
+      <div class="info-note" style="margin-top:8px;">
+        <strong>Exigence de formation continue :</strong> 7 heures par an (ou 21 heures sur 3 ans) de formation, conformément à l'arrêté du 26 juin 2012. Cette obligation s'applique à tous les IOBSP immatriculés, quel que soit leur statut.
+      </div>
+    </div>
+
+    <!-- BLOC 2 : Les 4 catégories IOBSP -->
+    <div class="info-card">
+      <h2 class="info-card-title">Les 4 catégories d'IOBSP</h2>
+      <div class="qtype-list">
+        <div class="qtype-row">
+          <span class="tag badge-cat1">Cat. 1</span>
+          <div class="qtype-body">
+            <strong>Courtier en crédit</strong>
+            <p>Présente et propose des contrats de crédit en travaillant avec plusieurs établissements de crédit. Formation requise : 150 heures. Niveau le plus exigeant.</p>
+          </div>
+        </div>
+        <div class="qtype-row">
+          <span class="tag badge-cat2">Cat. 2</span>
+          <div class="qtype-body">
+            <strong>Mandataire exclusif en opérations de banque</strong>
+            <p>Agit pour le compte d'un seul établissement de crédit. Formation : 80 heures.</p>
+          </div>
+        </div>
+        <div class="qtype-row">
+          <span class="tag badge-cat3">Cat. 3</span>
+          <div class="qtype-body">
+            <strong>Mandataire non exclusif en opérations de banque</strong>
+            <p>Agit pour plusieurs établissements sur mandat. Formation : 40 heures.</p>
+          </div>
+        </div>
+        <div class="qtype-row">
+          <span class="tag badge-cat4">Cat. 4</span>
+          <div class="qtype-body">
+            <strong>Mandataire d'IOBSP</strong>
+            <p>Agit pour le compte d'un IOBSP. Formation : 40 heures.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BLOC 3 : Les 8 modules du programme -->
+    <div class="info-card">
+      <h2 class="info-card-title">Les 8 modules du programme officiel</h2>
+      <p class="info-intro">Le programme de formation est défini par l'arrêté du 4 avril 2012. Pour la catégorie 1 (Courtier en crédit), 150 heures de formation sont requises.</p>
+      <div class="programme-grid">
+        <div class="prog-item"><span class="prog-dot prog-dot-1"></span><strong>Module 1 :</strong> Réglementation IOBSP (Code monétaire et financier)</div>
+        <div class="prog-item"><span class="prog-dot prog-dot-2"></span><strong>Module 2 :</strong> Environnement bancaire et financier</div>
+        <div class="prog-item"><span class="prog-dot prog-dot-3"></span><strong>Module 3 :</strong> Crédit immobilier (loi Scrivener 2, directive MCD)</div>
+        <div class="prog-item"><span class="prog-dot prog-dot-4"></span><strong>Module 4 :</strong> Crédit à la consommation (loi Lagarde)</div>
+        <div class="prog-item"><span class="prog-dot prog-dot-5"></span><strong>Module 5 :</strong> Regroupement de crédits</div>
+        <div class="prog-item"><span class="prog-dot prog-dot-6"></span><strong>Module 6 :</strong> Protection du consommateur</div>
+        <div class="prog-item"><span class="prog-dot prog-dot-7"></span><strong>Module 7 :</strong> Déontologie, éthique et bonnes pratiques</div>
+        <div class="prog-item"><span class="prog-dot prog-dot-8"></span><strong>Module 8 :</strong> LCB-FT — Lutte contre le blanchiment et le financement du terrorisme</div>
+      </div>
+    </div>
+
+    <!-- BLOC 4 : Les textes de référence -->
+    <div class="info-card">
+      <h2 class="info-card-title">Textes réglementaires de référence</h2>
+      <div class="tips-list">
+        <div class="tip-item">
+          <span class="tip-num">CMF</span>
+          <div class="tip-body">
+            <strong>Code monétaire et financier — Articles L. 519-1 à L. 519-6</strong>
+            <p>Définit le statut d'IOBSP, les obligations d'immatriculation, les conditions d'accès à la profession et les sanctions applicables.</p>
+          </div>
+        </div>
+        <div class="tip-item">
+          <span class="tip-num">Arr. 2012</span>
+          <div class="tip-body">
+            <strong>Arrêté du 4 avril 2012</strong>
+            <p>Précise les conditions de capacité professionnelle et le programme de formation obligatoire pour chaque catégorie d'IOBSP.</p>
+          </div>
+        </div>
+        <div class="tip-item">
+          <span class="tip-num">MCD</span>
+          <div class="tip-body">
+            <strong>Directive Crédit Immobilier 2014/17/UE (MCD)</strong>
+            <p>Harmonisation européenne du crédit immobilier. Introduit la FISE (Fiche d'Information Standardisée Européenne), le délai de réflexion de 10 jours et les obligations d'évaluation de solvabilité.</p>
+          </div>
+        </div>
+        <div class="tip-item">
+          <span class="tip-num">Lagarde</span>
+          <div class="tip-body">
+            <strong>Loi Lagarde (2010) — Crédit à la consommation</strong>
+            <p>Réforme du crédit à la consommation. Encadrement du crédit renouvelable, obligation d'information renforcée, délai de rétractation de 14 jours.</p>
+          </div>
+        </div>
+        <div class="tip-item">
+          <span class="tip-num">Hamon</span>
+          <div class="tip-body">
+            <strong>Loi Hamon (2014) — Protection du consommateur</strong>
+            <p>Extension du droit de résiliation d'assurance emprunteur dans la première année, renforcement des droits lors du regroupement de crédits.</p>
+          </div>
+        </div>
+        <div class="tip-item">
+          <span class="tip-num">LCB-FT</span>
+          <div class="tip-body">
+            <strong>Articles L. 561-1 et suivants du CMF</strong>
+            <p>Obligations de vigilance, de déclaration de soupçon à TRACFIN, de conservation des documents. Sanctions en cas de manquement (jusqu'à 1 million d'euros d'amende).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BLOC 5 : Conseils de méthode -->
+    <div class="info-card">
+      <h2 class="info-card-title">Conseils de méthode pour réussir la certification</h2>
+      <div class="tips-list">
+
+        <div class="tip-item">
+          <span class="tip-num">1</span>
+          <div class="tip-body">
+            <strong>Maîtriser les définitions légales exactes</strong>
+            <p>La certification teste la connaissance précise des textes. Maîtrisez les définitions du Code monétaire et financier : IOBSP, TAEG, TEG, FIP (fiche d'information précontractuelle), FISE, DER, etc.</p>
+          </div>
+        </div>
+
+        <div class="tip-item">
+          <span class="tip-num">2</span>
+          <div class="tip-body">
+            <strong>Connaître les délais légaux par cœur</strong>
+            <p>10 jours de réflexion obligatoires pour le crédit immobilier. 14 jours de rétractation pour le crédit à la consommation. 14 jours pour signaler un décès à l'assureur. Ces délais reviennent systématiquement aux examens.</p>
+          </div>
+        </div>
+
+        <div class="tip-item">
+          <span class="tip-num">3</span>
+          <div class="tip-body">
+            <strong>Distinguer les obligations selon la catégorie IOBSP</strong>
+            <p>Les obligations varient significativement entre courtier (Cat. 1), mandataire exclusif (Cat. 2), mandataire non exclusif (Cat. 3) et mandataire d'IOBSP (Cat. 4). Un point de programme souvent testé.</p>
+          </div>
+        </div>
+
+        <div class="tip-item">
+          <span class="tip-num">4</span>
+          <div class="tip-body">
+            <strong>LCB-FT : connaître les seuils et les procédures</strong>
+            <p>Seuil de 10 000 € pour certaines vigilances renforcées. Déclaration de soupçon à TRACFIN : sans limite de montant. Conservation des pièces : 5 ans. Interdiction d'informer le client de la déclaration.</p>
+          </div>
+        </div>
+
+        <div class="tip-item">
+          <span class="tip-num">5</span>
+          <div class="tip-body">
+            <strong>Utiliser les flashcards pour mémoriser les définitions réglementaires</strong>
+            <p>La réglementation IOBSP est dense en acronymes et en références légales. Les flashcards SM-2 de cette app permettent de les mémoriser durablement, avec répétition espacée adaptée à votre rythme.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- BLOC 6 : Le processus d'immatriculation -->
+    <div class="info-card">
+      <h2 class="info-card-title">Processus d'immatriculation à l'ORIAS</h2>
+      <div class="exam-flow">
+        <div class="exam-flow-step">
+          <div class="exam-flow-time">Étape 1</div>
+          <div class="exam-flow-body">
+            <strong>Justifier de la capacité professionnelle</strong>
+            <p>Diplôme de niveau Bac+2 en économie/droit/commerce, OU expérience professionnelle de 2 ans dans un établissement de crédit, OU formation de 150 heures (Cat. 1). Toutes les voies sont équivalentes devant l'ORIAS.</p>
+          </div>
+        </div>
+        <div class="exam-flow-step">
+          <div class="exam-flow-time">Étape 2</div>
+          <div class="exam-flow-body">
+            <strong>Souscrire une assurance RC professionnelle</strong>
+            <p>Obligatoire. Montant minimum fixé par décret : 500 000 € par sinistre, 800 000 € par an pour les IOBSP. Garantie obligatoire dès le 1er jour d'activité.</p>
+          </div>
+        </div>
+        <div class="exam-flow-step">
+          <div class="exam-flow-time">Étape 3</div>
+          <div class="exam-flow-body">
+            <strong>Constituer le dossier ORIAS</strong>
+            <p>Formulaire d'immatriculation, justificatifs de capacité professionnelle, attestation RC professionnelle, déclaration sur l'honneur de non-condamnation, extrait Kbis ou K si applicable.</p>
+          </div>
+        </div>
+        <div class="exam-flow-step">
+          <div class="exam-flow-time">Étape 4</div>
+          <div class="exam-flow-body">
+            <strong>Immatriculation et numéro ORIAS</strong>
+            <p>Après validation du dossier, obtention du numéro d'immatriculation ORIAS (format : X XXXXXXXX). Ce numéro doit figurer obligatoirement sur tous les documents professionnels. Renouvellement annuel.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn btn-secondary" onclick="showHome()" style="width:100%;margin-top:8px">← Retour à l'accueil</button>
+
+  </main>
+</div>
+
+
+<!-- ===================== CONFIG FLASHCARDS ===================== -->
+<div id="fc-config-screen" class="screen hidden">
+  <header class="app-header">
+    <button class="btn-back" onclick="showHome()">← Retour</button>
+    <h1>Flashcards — Configuration</h1>
+  </header>
+  <main class="main-content">
+    <div id="fc-config-content"></div>
+  </main>
+</div>
+
+<!-- ===================== ÉCRAN FLASHCARDS ===================== -->
+<div id="flashcard-screen" class="screen hidden">
+  <header class="app-header">
+    <button class="btn-back" onclick="showHome()">← Retour</button>
+    <h1>Flashcards</h1>
+  </header>
+  <main class="main-content fc-main">
+
+    <div class="fc-progress-bar">
+      <div class="fc-progress-fill" id="fc-progress-fill"></div>
+      <span class="fc-progress-text" id="fc-progress-text">1 / 15</span>
+    </div>
+
+    <div class="fc-category-badge" id="fc-category-badge"></div>
+
+    <div class="fc-card-container" id="fc-card-container" onclick="flipFlashcard()">
+      <div class="fc-card" id="fc-card">
+        <div class="fc-card-front" id="fc-card-front">
+          <p class="fc-question"></p>
+        </div>
+        <div class="fc-card-back" id="fc-card-back">
+          <p class="fc-answer"></p>
+        </div>
+      </div>
+    </div>
+
+    <p class="fc-flip-hint" id="fc-flip-hint">Cliquez sur la carte ou appuyez sur Espace pour retourner</p>
+
+    <div class="fc-buttons hidden" id="fc-buttons">
+      <button class="fc-btn fc-btn-bad" onclick="rateFlashcard(1)">
+        <span class="fc-btn-icon">✗</span>
+        <span>Mauvais</span>
+        <span class="fc-btn-interval" id="fc-interval-1"></span>
+      </button>
+      <button class="fc-btn fc-btn-ok" onclick="rateFlashcard(3)">
+        <span class="fc-btn-icon">~</span>
+        <span>Ok</span>
+        <span class="fc-btn-interval" id="fc-interval-3"></span>
+      </button>
+      <button class="fc-btn fc-btn-good" onclick="rateFlashcard(4)">
+        <span class="fc-btn-icon">✓</span>
+        <span>Bon</span>
+        <span class="fc-btn-interval" id="fc-interval-4"></span>
+      </button>
+      <button class="fc-btn fc-btn-perfect" onclick="rateFlashcard(5)">
+        <span class="fc-btn-icon">★</span>
+        <span>Parfait</span>
+        <span class="fc-btn-interval" id="fc-interval-5"></span>
+      </button>
+    </div>
+
+    <div class="fc-mastery-indicator" id="fc-mastery-indicator"></div>
+
+  </main>
+</div>
+
+<!-- ===================== RÉSULTATS FLASHCARDS ===================== -->
+<div id="fc-results-screen" class="screen hidden">
+  <header class="app-header">
+    <button class="btn-back" onclick="showHome()">← Retour</button>
+    <h1>Résultats Flashcards</h1>
+  </header>
+  <main class="main-content">
+    <div id="fc-results-content"></div>
+    <button class="btn btn-primary" onclick="showHome()" style="width:100%;margin-top:16px">Retour à l'accueil</button>
+  </main>
+</div>
+
+<!-- ===================== CARTE DE CONNAISSANCES ===================== -->
+<div id="knowledge-screen" class="screen hidden">
+  <header class="app-header">
+    <button class="btn-back" onclick="showHome()">← Retour</button>
+    <h1>Carte de connaissances</h1>
+  </header>
+  <main class="main-content">
+    <div class="km-summary" id="km-summary"></div>
+    <div class="km-grid" id="km-grid"></div>
+    <button class="btn btn-secondary" onclick="showHome()" style="width:100%;margin-top:16px">← Retour à l'accueil</button>
+  </main>
+</div>
+
+
+<!-- Scripts (data chargé avant app pour garantir window.QUESTIONS disponible) -->
+<script src="data/questions.js"></script>
+<script src="data/flashcards.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
