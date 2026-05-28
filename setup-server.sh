@@ -31,21 +31,31 @@ ln -sf /etc/nginx/sites-available/iobsp-coach /etc/nginx/sites-enabled/
 rm -f /etc/nginx/sites-enabled/default
 nginx -t && systemctl reload nginx
 
-echo "=== 5. Certificat Let's Encrypt ==="
+echo "=== 5. Certificats Let's Encrypt (frontend + API) ==="
 certbot --nginx -d "$DOMAIN" -d "www.$DOMAIN" \
-  --non-interactive --agree-tos --email "$EMAIL" \
-  --redirect
+  --non-interactive --agree-tos --email "$EMAIL" --redirect
+certbot --nginx -d "api.$DOMAIN" \
+  --non-interactive --agree-tos --email "$EMAIL" --redirect
 
-echo "=== 6. Config nginx finale (HTTPS) ==="
-# Copier nginx.conf depuis le répertoire web après le premier déploiement
-# cp $WEBROOT/nginx.conf /etc/nginx/sites-available/iobsp-coach
-# nginx -t && systemctl reload nginx
+echo "=== 6. Installation de l'API Node.js ==="
+mkdir -p /opt/iobsp-coach-api
+# rsync api/ /opt/iobsp-coach-api/ — à faire via deploy.sh
+cp "$WEBROOT/api/iobsp-coach-api.service" /etc/systemd/system/
+systemctl daemon-reload
+systemctl enable iobsp-coach-api
+# Démarrer après le premier déploiement : systemctl start iobsp-coach-api
 
-echo "=== 7. Renouvellement auto Let's Encrypt ==="
+echo "=== 7. Config nginx finale (HTTPS) ==="
+cp "$WEBROOT/nginx.conf" /etc/nginx/sites-available/iobsp-coach
+nginx -t && systemctl reload nginx
+
+echo "=== 8. Renouvellement auto Let's Encrypt ==="
 systemctl enable certbot.timer
 
 echo ""
-echo "✓ Serveur prêt. Maintenant :"
-echo "  1. Pointer les DNS : hfp-coach.ch → $(curl -s ifconfig.me)"
-echo "  2. Lancer le premier déploiement : ./deploy.sh root@$(curl -s ifconfig.me)"
-echo "  3. Copier nginx.conf et recharger : nginx -t && systemctl reload nginx"
+echo "✓ Serveur prêt. Prochaines étapes :"
+echo "  1. DNS pointés : hfp-coach.ch + www + api → $(curl -s ifconfig.me)"
+echo "  2. Premier déploiement frontend : ./deploy.sh root@$(curl -s ifconfig.me)"
+echo "  3. Premier déploiement API : décommenter deploy_api dans deploy.sh"
+echo "  4. Créer /opt/iobsp-coach-api/.env depuis api/.env.example"
+echo "  5. systemctl start iobsp-coach-api"
