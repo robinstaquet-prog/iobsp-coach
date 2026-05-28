@@ -22,3 +22,19 @@ rsync -avz --delete \
 # ssh "$HOST" "nginx -t && systemctl reload nginx"
 
 echo "✓ Déployé sur https://hfp-coach.ch"
+
+# Déploiement API (si le répertoire api/ est modifié)
+deploy_api() {
+  echo "→ Déploiement API vers $HOST:/opt/iobsp-coach-api"
+  rsync -avz --delete \
+    --exclude 'node_modules' \
+    --exclude '.env' \
+    --exclude '*.db*' \
+    api/ "$HOST:/opt/iobsp-coach-api/"
+
+  ssh "$HOST" "cd /opt/iobsp-coach-api && npm install --omit=dev && systemctl restart iobsp-coach-api"
+  echo "✓ API redémarrée"
+}
+
+# Décommenter pour déployer l'API :
+# deploy_api
